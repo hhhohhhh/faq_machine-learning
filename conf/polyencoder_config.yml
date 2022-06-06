@@ -1,0 +1,102 @@
+
+model_paras:
+  train_epochs: 50
+  train_batch_size: 32
+  test_batch_size: 32
+  fp16: True
+
+  loss_name: sparse_categorical_crossentropy
+  optimizer_name: adamax
+  learning_rate: 5e-05
+  warmup_epoch: 1
+  warmup_updates: 100
+  lr_scheduler_patience: 0
+  lr_scheduler_decay: 0.4
+  veps: 0.5
+  vme: 8000
+
+  validation_metric: accuracy
+  validation_metric_mode: max
+  save_after_valid: True
+  log_every_n_secs: 20
+  candidates: batch
+
+  data_parallel: True
+  history_size: 20
+  label_truncate: 72
+  text_truncate: 360
+
+
+
+  # 需要使用中文的字典:
+  # 默认是 english : bpe , 中文的时候 chinese: bert_tokenizer
+  # parlai.core.dict:DictionaryAgent
+  dict_language: chinese
+  dict_class: parlai.agents.bert_ranker.bert_dictionary:BertDictionaryAgent
+  dict_tokenizer: bert
+  dict_lower: True
+  dict_endtoken: __start__
+
+
+  model_name: ployencoder
+  polyencoder_type: codes
+  poly_n_codes: 64
+  poly_attention_type: basic
+  init_model: zoo:pretrained_transformers/poly_model_huge_reddit/model
+  codes_attention_type:
+  codes_attention_num_heads:
+
+  output_scaling: 0.06
+  variant: xlm
+  reduction_type: mean
+  share_encoders: False
+  learn_positional_embeddings: True
+  n_layers: 12
+  n_heads: 12
+  ffn_size: 3072
+  attention_dropout: 0.1
+  relu_dropout: 0.0
+  dropout: 0.1
+  n_positions: 1024
+  embedding_size: 768
+  activation: gelu
+  embeddings_scale: False
+  n_segments: 2
+  learn_embeddings: True
+
+
+
+#  max_seq_length: 128
+#  batch_strategy: BALANCED_BATCH_STRATEGY
+#  class_weight_strategy:  None #balanced
+#  min_lr_ratio: 0.0
+#  power: 1.0
+#  weight_decay_rate: 0.01
+#  clipnorm: 1.0
+#  adam_epsilon: 1e-8
+#  use_cosine_annealing:  False
+#
+#  with_pool: False
+#  dropout_rate: 0.1
+#  if_use_crf: True
+#  transformer_base_model : albert
+#  pretrained_model_dir : ./pretrained_model/albert-chinese-tiny # albert_tiny_zh_google
+#  freeze_pretrained_weights: False
+#  freeze_embedding_weights: False
+##  restore_epoch : None
+#  # vocab.txt是模型的词典
+#  vocab_filename: vocab.txt
+#  model_config_filename:   config.json # albert_config.json
+#  early_stopping_steps: 10000
+#  exports_to_keep: 10
+#  save_checkpoints_steps: 1000
+#  metrics:
+#    - accuracy
+#  tensorboard_log_update_freq: 100
+#  from_pt: True # 从 pytorch_model.bin 中提取预训练的参数  vs 从 tf checkpoint 中提取参数
+#  torch_savedmodel_name: pytorch_model.bin
+
+
+
+
+

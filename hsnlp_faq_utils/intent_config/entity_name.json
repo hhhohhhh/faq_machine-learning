@@ -1,0 +1,15 @@
+{
+  "security_market": "[证券市场]",
+  "stock_block": "[股票板块]",
+  "bussiness_type": "[业务类型]",
+  "account_type": "[账号类型]",
+  "password_type": "[密码类型]",
+  "operation_channel": "[操作渠道]",
+  "fee_type": "[费用类型]",
+  "company_name": "[公司名称]",
+  "nationality": "[国籍]",
+  "stock_name": "[股票名称]",
+  "zsstock_name": "[股票指数名称]",
+  "location": "[地点]",
+  "stock_code": "[股票代码]"
+}

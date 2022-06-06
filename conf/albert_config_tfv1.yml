@@ -1,0 +1,71 @@
+
+model_paras:
+  train_epochs: 50
+  train_batch_size: 320
+  dev_batch_size: 32
+  test_batch_size: 32
+  filter_source:
+#    - juyuan-human-labeled
+  filter_single_label_examples: True
+  model_name : HFAlbertClassifierModel
+  # 模型输出为 logits, loss(from_logit =True) 默认为 False
+  model_output_logits : True
+  loss_name: binary_crossentropy # binary_crossentropy
+  optimizer_name: adamw # hf_adamw
+  learning_rate : 5e-5
+  multilabel_classifier: False
+  max_seq_length: 32
+  train_data_lowest_threshold: 100
+  train_data_highest_threshold:  #  1000
+  batch_strategy:  # balanced_batch_strategy
+  class_weight_strategy:  # balanced
+  warmup_epoch: 1
+  # 计算视觉中 ： 往往使用 2 step: transfer learning (freeze base model) +finetuning learning (all weights)
+  # transfer learning(freeze) 的 learning rate 应该比较大
+  transfer_learning_rate: 1e-3
+  transfer_learning_epochs: 20
+  transfer_learning_warmup_epoch: 1
+  # # the recommended learning rates from the original paper Appendix A.3 of 5e-5, 3e-5 or 2e-5.
+  # finetuning learning 的 learning rate  比较小
+  finetuning_epochs: 30
+  finetuning_learning_rate : 1e-4
+  finetuning__warmup_epoch: 1
+#  warmup_steps:
+#  decay_epoch:
+#  decay_steps:
+  min_lr_ratio: 0.0
+  power: 1.0
+  use_cosine_annealing:  False
+  weight_decay_rate: 0.01
+  clipnorm: 1.0
+  adam_beta1: 0.9
+  adam_beta2: 0.999
+  adam_epsilon: 1e-8
+  with_pool: False
+  dropout_rate: 0.1
+  if_use_crf: True
+  transformer_base_model : albert
+  pretrained_model_dir : ./pretrained_model/albert_tiny_zh_google #  ./pretrained_model/albert-chinese-tiny
+  freeze_pretrained_weights: False
+  freeze_embedding_weights: False
+#  restore_epoch : None
+  # vocab.txt是模型的词典
+  do_lower_case: True
+  vocab_filename: vocab.txt
+  model_config_filename:  albert_config.json #  config.json #
+  early_stopping_steps: 10000
+  exports_to_keep: 10
+  save_checkpoints_steps: 1000
+  metric_names:
+    - categorical_accuracy
+#    - binary_accuracy
+#    - accuracy
+  tensorboard_log_update_freq: 100
+  from_pt: False # 从 pytorch_model.bin 中提取预训练的参数  vs 从 tf checkpoint 中提取参数
+  torch_savedmodel_name: pytorch_model.bin
+  ckpt_name: albert_model.ckpt
+
+
+
+
+

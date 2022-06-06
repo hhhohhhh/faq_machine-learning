@@ -1,0 +1,48 @@
+TASK_NAME = ['siamese_similarity','polyencoder_sentence_pair_to_dstc7' ][1]
+MODEL_NAME = ["raw-rnn",'lstm','fasttext','bert'][3]
+
+MODE = ['train','predict'][0]
+NUM_TRAIN_EPOCHS = 100
+GPU_NO = 0
+
+
+# 使用预训练的词向量
+USE_PRETRAINED_EMBEDDINGS=False
+PRETRAINED_EMBEDDINGS= "glove.6B.100d"
+
+# 使用 bert 预训练模型
+PRETRAINED_DIR= "pretrained_model"
+BERT_MODEL = "bert-base-uncased"
+VOCAB_FILE_NAME = 'vocab.txt'
+PRETRAINED_BERT_DIR = os.path.join(PRETRAINED_DIR,BERT_MODEL)
+VOCAB_FILE= os.path.join(PRETRAINED_BERT_DIR,VOCAB_FILE_NAME)
+
+SPLIT_RATIO=0.7
+MAX_VACAB_SIZE = 25000
+EMBEDDING_DIM = 100
+
+BATCH_SIZE = 64
+OPTIMIZER= ["sgd",'adam'][1]
+LEARNING_RATE = 2e-5
+# LEARNING_RATE = 5e-5
+
+
+# TextCNN 参数配置
+DROPOUT= 0.25
+N_FILTERS=50
+FILTER_SIZES = [2,3,4]
+
+
+# RNN参数配置
+HIDDEN_SIZE = 256
+NUM_LAYERS = 2
+BIDIRECTIONAL= True
+
+
+# 模型与日志保存目录
+TEST_NUM = 'adamw_and_warmup_003'
+OUTPUT_DIR = 'output'
+MODEL_OUTPUT_DIR = os.path.join(OUTPUT_DIR, f"{TASK_NAME}_{MODEL_NAME}_{LEARNING_RATE}_{TEST_NUM}")
+LOG_FILENAME= MODE
+SAVED_MODEL_NAME  = f"{MODEL_NAME}-model.pt"
+BEST_MODEL_PATH = os.path.join(MODEL_OUTPUT_DIR, SAVED_MODEL_NAME)

@@ -1,0 +1,76 @@
+
+[main]
+task_name = polyencoder
+model = transformer/polyencoder
+mode = train
+
+
+[train]
+task = dstc7
+datapath = data/sentence_pairdata_to_dstc7
+test_num = 1
+gpu_no = 0
+output_dir = output/sentence_pairdata_to_dstc7_output
+fp16 = True
+num_epochs = 8
+max_train_time = 200000
+batchsize = 64
+eval_batchsize = 10
+warmup_updates = 100
+lr_scheduler_patience = 0
+lr_scheduler_decay = 0.4
+lr = 5e-05
+
+data_parallel = True
+history_size = 20
+label_truncate = 72
+text_truncate = 360
+
+
+veps = 0.5
+vme = 8000
+
+validation_metric = accuracy
+validation_metric_mode = max
+save_after_valid = True
+log_every_n_secs = 20
+candidates = batch
+
+
+
+
+model_filename = polyencoder
+polyencoder_type = codes
+poly_n_codes = 64
+poly_attention_type = basic
+# init_model = zoo:pretrained_transformers/poly_model_huge_reddit/model
+# 需要使用中文的字典:
+# 默认是 english : bpe , 中文的时候 chinese: bert_tokenizer
+# parlai.core.dict:DictionaryAgent
+dict_language = chinese
+dict_class =  parlai.agents.bert_ranker.bert_dictionary:BertDictionaryAgent
+dict_tokenizer = bert
+dict_lower = True
+dict_endtoken = __start__
+
+optimizer = adamax
+
+output_scaling = 0.06
+variant = xlm
+reduction_type = mean
+share_encoders = False
+learn_positional_embeddings = True
+n_layers = 12
+n_heads = 12
+ffn_size = 3072
+attention_dropout = 0.1
+relu_dropout = 0.0
+dropout = 0.1
+n_positions = 1024
+embedding_size = 768
+activation = gelu
+embeddings_scale = False
+n_segments = 2
+learn_embeddings = True
+
+
